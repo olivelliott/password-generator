@@ -9,7 +9,7 @@
 var generateBtn = document.querySelector("#generate");
 var wantsLower =  ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var wantsUpper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var wantsNumber = Math.floor(Math.random() * 1);
+var wantsNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var wantsSpecialChar =  [ '!', '#', '$', '%', '&', '(', ')', '*', '+', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^',' _', '{', '|', '}', '~', '/', ];
 var possibleCharacters = [];
 
@@ -17,33 +17,22 @@ var possibleCharacters = [];
  // WHEN prompted for the length of the password
 // THEN I choose a length of at least 8 characters and no more than 128 characters
 
-// var getPlayerName = function() {
-//   var name = "";
-//   while (name === "" || name === null) {
-//       name = prompt("What is your robot's name?");
-//   }
-//   console.log("Your robot's name is " + name);
-//   return name;
-// }
 
-
-var characterLength = function() {
-      var length = "";
+var passwordLength = function() {
       var characterPrompt = prompt("Please choose a length of at least 8 characters and no more than 128 characters.");
       if (characterPrompt == "" || characterPrompt == null) {
         alert("You need to provide a valid answer! Please try again.");
-        return characterLength();
+        return passwordLength();
       }
       if (characterPrompt <= 7 || characterPrompt >= 129) {
         alert("Please pick a number between 8 and 128 characters.");
-        return characterLength();
+        return passwordLength();
       }
       if (characterPrompt >= 8 || characterPrompt <=128) {
-        length = characterPrompt;
-        chooseLower();
-        console.log(length);
+        characterPrompt = parseInt(characterPrompt);
+        passwordLength = characterPrompt;
       }
-      possibleCharacters.push(length);
+      chooseLower();
   };
 
 // WHEN prompted for password criteria
@@ -84,47 +73,41 @@ var chooseLower = function() {
 
     if (upperPrompt=== "no" || upperPrompt=== "No") {
     }
-    wantsNumber();
+    chooseNumber();
   };
-console.log(possibleCharacters);
-var wantsNumber = function() {
-  prompt('Would you like to include numbers?');
-  wantsNumber = parseInt(wantsNumber);
-  if (wantsNumber == "" || wantsNumber == null) {
+
+var chooseNumber = function() {
+  var number = "";
+  var numberPrompt = prompt('Would you like to include numbers?');
+  if (numberPrompt == "" || numberPrompt == null) {
     alert("You need to provide a valid answer! Please try again.");
-    return wantsNumber();
+    return numberPrompt();
+  }
+  // wantsNumber = parseInt(wantsNumber);
+  if (numberPrompt === "yes" || numberPrompt === "Yes") {
+    number = wantsNumber;
+    possibleCharacters.push(wantsNumber);
   }
 
-  if (wantsNumber === "yes" || wantsNumber === "Yes") {
-    possibleCharacters.concat(wantsNumber);
-    return true;
-    // wantsNumber.wantsUpper();
+  if (numberPrompt === "no" || numberPrompt === "No") {
   }
-
-  if (wantsNumber === "no" || wantsNumber === "No") {
-    // wantsUpper();
-    return false;
-    wantsSpecialChar();
-  }
-  wantsSpecialChar ();
+  chooseSpecialChar ();
 };
 
-var wantsSpecialChar = function() {
-  prompt('Would you like to include special characters?');
-  if (wantsSpecialChar == "" || wantsSpecialChar == null) {
+var chooseSpecialChar = function() {
+  special = "";
+  var specialCharPrompt = prompt('Would you like to include special characters?');
+  if (specialCharPrompt == "" || specialCharPrompt == null) {
     alert("You need to provide a valid answer! Please try again.");
-    return wantsSpecialChar();
+    return specialCharPrompt();
   }
 
-  if (wantsSpecialChar === "yes" || wantsSpecialChar === "Yes") {
-    possibleCharacters.concat(wantsSpecialChar);
-    return true;
-    // wantsSpecialChar.wantsUpper();
+  if (specialCharPrompt === "yes" || specialCharPrompt === "Yes") {
+    special = wantsSpecialChar;
+    possibleCharacters.push(wantsSpecialChar);
   }
 
-  if (wantsSpecialChar === "no" || wantsSpecialChar === "No") {
-    // wantsUpper();
-    return false;
+  if (specialCharPrompt === "no" || specialCharPrompt === "No") {
   } 
 };
 
@@ -162,7 +145,7 @@ var writePassword = function () {
 // }
 
 //  WHEN I click the button to generate a password
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", passwordLength);
 
 
 
