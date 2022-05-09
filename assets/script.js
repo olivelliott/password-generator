@@ -109,15 +109,24 @@ var chooseSpecialChar = function() {
 
   if (specialCharPrompt === "no" || specialCharPrompt === "No") {
   } 
+  // writePassword();
 };
 
+var generatePassword = function () {
+  for (var i = 0; i < passwordLength; i++) {
+    var randomIndex = Math.floor(Math.random() * possibleCharacters.length);
+    var randomLetter = possibleCharacters[randomIndex];
+    generatePassword = randomLetter;
+  }
+
+}
 var writePassword = function () {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
 }
 
 // function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
 
 // WHEN I answer each prompt
 // THEN my input should be validated and at least one character type should be selected
@@ -130,29 +139,13 @@ var writePassword = function () {
 
 
 
-// var passwordText = document.querySelector('#password');
 // passwordText.value = password;
-
-
-
-
-  // characterPrompt = parseInt (characterPrompt);
-
-// // Write password to the #password input
-
-//   passwordText.value = password;
 
 // }
 
 //  WHEN I click the button to generate a password
 generateBtn.addEventListener("click", passwordLength);
 
-
-
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-// }
 
 // possibleCharacters.length 
 // possibleCharacters[randomNumber];
