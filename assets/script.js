@@ -12,6 +12,7 @@ var wantsUpper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M
 var wantsNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var wantsSpecialChar =  [ '!', '#', '$', '%', '&', '(', ')', '*', '+', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^',' _', '{', '|', '}', '~', '/', ];
 var possibleCharacters = [];
+var chosenCharacters = [];
 
  // THEN I am presented with a series of prompts for password criteria
  // WHEN prompted for the length of the password
@@ -50,7 +51,9 @@ var chooseLower = function() {
 
     if (lowerPrompt === "yes" || lowerPrompt === "Yes") {
       lower = wantsLower;
+      chooseLower = true;
       possibleCharacters.push(wantsLower);
+      chosenCharacters = possibleCharacters;
     }
 
     if (lowerPrompt === "no" || lowerPrompt === "No") {
@@ -68,9 +71,13 @@ var chooseLower = function() {
 
     if (upperPrompt=== "yes" || upperPrompt=== "Yes") {
       upper = wantsUpper;
-      possibleCharacters.push(wantsUpper);
-    }
-
+      chooseUpper = true;
+      if (chooseLower === true) {
+      possibleCharacters = wantsLower.concat(wantsUpper);
+      }
+      else {possibleCharacters.push(wantsUpper)};
+    };
+    chosenCharacters = possibleCharacters
     if (upperPrompt=== "no" || upperPrompt=== "No") {
     }
     chooseNumber();
@@ -86,7 +93,16 @@ var chooseNumber = function() {
   // wantsNumber = parseInt(wantsNumber);
   if (numberPrompt === "yes" || numberPrompt === "Yes") {
     number = wantsNumber;
-    possibleCharacters.push(wantsNumber);
+    chooseNumber = true
+    if (chooseLower === true || chooseUpper === true) {
+      chosenCharacters = possibleCharacters.concat(wantsNumber);
+    }
+    else {
+      possibleCharacters.push(wantsNumber);
+    } 
+    chosenCharacters = possibleCharacters;
+    // else {chosenCharacters = possibleCharacters.push(wantsNumber)}
+    // possibleCharacters.push(wantsNumber);
   }
 
   if (numberPrompt === "no" || numberPrompt === "No") {
@@ -109,22 +125,42 @@ var chooseSpecialChar = function() {
 
   if (specialCharPrompt === "no" || specialCharPrompt === "No") {
   } 
-  // writePassword();
+  // generatePassword();
 };
 
-var generatePassword = function () {
-  for (var i = 0; i < passwordLength; i++) {
-    var randomIndex = Math.floor(Math.random() * possibleCharacters.length);
-    var randomLetter = possibleCharacters[randomIndex];
-    generatePassword = randomLetter;
-  }
+// var chosenCharacters = function () {
+//   if (chooseUpper === true) {
+//   };
+// }
 
-}
-var writePassword = function () {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-}
+// var generatePassword = function() {
+// }
+
+// chosenCharacters = possibleCharacters.concat(wantsUpper);
+// console.log(possibleCharacters);
+// // var generatePassword = Math.floor(Math.random() *)
+
+
+// var generatePassword = function () {
+//  for (var i = 0; i < possibleCharacters.length; i++) {
+//     var randomIndex = Math.floor(Math.random() * possible);
+//     var randomLetter = possibleCharacters[randomIndex];
+//     generatePassword = randomLetter;
+//   }
+// }
+
+// for (var i = 0; i = passwordLength; i++) {
+//   var char = Math.floor(Math.random() * possibleCharacters.length + 1);
+//   pass += possibleCharacters.charAt(char);
+
+// }
+// var randomIndex = possibleCharacters[Math.floor(Math.random() * possibleCharacters.length)];
+
+// var writePassword = function () {
+//   var password = generatePassword();
+//   var passwordText = document.querySelector("#password");
+//   passwordText.value = password;
+// }
 
 // function writePassword() {
 
